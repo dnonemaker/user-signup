@@ -25,12 +25,19 @@ def process_user_signup():
     email_error_arg = ""
 
     # Validate -- Are username or pw fields blank?
+     # Validate -- username and pw characters must be between 3 and 20 characters.
     if username_arg == "":
         username_error_arg = "Username is required."
+    elif len(username_arg) < 3 or len(username_arg) > 20:
+        username_error_arg = "Username must be between 3 and 20 characters."
     if password_arg == "":
         password_error_arg = "Password is required."
+    elif len(password_arg) < 3 or len(password_arg) > 20:
+        password_error_arg = "Password must be between 3 and 20 characters."
     if verify_arg == "":
         verify_error_arg = "Password is required."
+    elif len(verify_arg) < 3 or len(verify_arg) > 20:
+        verify_error_arg = "Password must be between 3 and 20 characters."
 
     # Validate -- #  username and pw must not contain a space character
     if " " in username_arg:
@@ -40,16 +47,7 @@ def process_user_signup():
     if " " in verify_arg:
         verify_error_arg = "Space in Password not allowed."
 
-
-    # Validate --   username and pw characters must be between 3 and 20 characters.
-    if len(username_arg) < 3 or len(username_arg) > 20:
-        username_error_arg = "Username must be between 3 and 20 characters."
-    if len(password_arg) < 3 or len(password_arg) > 20:
-        password_error_arg = "Password must be between 3 and 20 characters."
-    if len(verify_arg) < 3 or len(verify_arg) > 20:
-        verify_error_arg = "Password must be between 3 and 20 characters."
-
-    # alidate -- The user's password and password-verify must match
+    # Validate -- The user's password and password-verify must match
     if password_arg != verify_arg:
         password_error_arg = "Passwords must match."
         verify_error_arg = "Passwords must match."
