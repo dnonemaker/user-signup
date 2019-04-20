@@ -76,48 +76,15 @@ def process_user_signup():
 
     # If all error args are blank, render welcome page.
     if not username_error_arg and not password_error_arg and not verify_error_arg and not email_error_arg:
-        return redirect("/welcome?username={0}".format(username_arg))
+        return redirect("/welcome", code=307)
     else:
         return render_template("home.html", username = username_arg, email=email_arg,username_error = username_error_arg,
             password_error=password_error_arg,verify_error=verify_error_arg,email_error=email_error_arg)
 
-@app.route("/welcome")
+@app.route("/welcome", methods=['POST'])
 def display_welcome():
-    username_arg = request.args.get("username")
+    username_arg =request.form['username']
 
     return render_template("welcome.html",username=username_arg)
-
-"""
-@app.route("/")
-def index():
-
-    # Set error message variables to empty
-    username_error_arg = ""
-    password_error_arg = ""
-    verify_error_arg = ""
-    email_error_arg = ""
-    # error_msg = cgi.escape(request.args.get("error"))
-
-    
-    if not username_error and not password_error and not password_validate_error and not email_error:
-        username = username
-        return redirect('/welcome?username={0}'.format(username))
-    else:
-        return render_template('main.html', username_error=username_error, username=username, password_error=password_error, password=password, password_validate_error=password_validate_error, password_validate=password_validate, email_error=email_error, email=email)
-    
-    
-    return render_template("home.html", username_error = username_error_arg,
-        password_error=password_error_arg,verify_error=verify_error_arg,email_error=email_error_arg)
-"""
-# Error Handling
-
-
-# For the username and email fields,
-# you should preserve what the user typed,
-# so they don't have to retype it.
-# With the password fields, you should clear them, for security reasons.
-
-
-
 
 app.run()
